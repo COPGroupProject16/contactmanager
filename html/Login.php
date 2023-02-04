@@ -8,8 +8,8 @@
 	$firstName = "";
 	$lastName = "";
 
-	// Connect to SQL database
-	$conn = new mysqli("142.93.53.159", "root", "ucfCOP4331g"); 	
+	// Connect to MySQL database
+	$conn = new mysqli("142.93.53.159", "root", "c4546bd160ab1858964dbd7193c530cde5344f42cfb1c932", "cm_database"); 	
 	
 	// Case: Connection Failed
 	if( $conn->connect_error )
@@ -19,7 +19,7 @@
 
 	// Case: Connection Succeeded 
 	else
-	{		
+	{
 		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
 		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
 		$stmt->execute();
