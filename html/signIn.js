@@ -57,27 +57,27 @@ function doLogin()
 }
 
 
+// Show Password Field on Login/Sign Up Page(s)
 function showPass() 
 {
     var x = document.getElementById("password");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
+	
+    if (x.type === "password") { x.type = "text"; } 
+	else { x.type = "password"; }
 
     x = document.getElementById("passwordCheck");
-    if (x.type === "password") {
-      x.type = "text";
-    } else {
-      x.type = "password";
-    }
+
+    if (x.type === "password") { x.type = "text"; }
+	else { x.type = "password"; }
 }
 
+
+// Performs a validation of new username and password
 function signupCheck()
 {
   // Get Username and Passwords
   var username = document.getElementById("username").value;
+
   var password = document.getElementById("password").value;
   var passwordCheck = document.getElementById("passwordCheck").value;
 
