@@ -50,6 +50,67 @@ function doLogin()
 
 }
 
+// Signup Function()
+function doSignup()
+{
+	userId = 0;
+	firstName = "";
+	lastName = "";
+	
+	let firstName = document.getElementById("firstName").value;
+	let lastName = document.getElementById("lastName").value;
+	let username = document.getElementById("username").value;
+	let password = document.getElementById("password").value;
+	let passwordCheck = document.getElementById("passwordCheck").value;
+
+	// Passwords Must Match
+	if(password.value != passwordCheck.value)
+	{
+		return;
+	}
+
+	let jsonPayload = JSON.stringify({ username: username, password: password, firstName: firstName, lastName: lastName});
+ 
+ 
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/signup.php';
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			let jsonObject = JSON.parse(xhr.responseText);
+      		console.log(jsonObject);
+			userId = jsonObject.id;
+
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				if( userId < 1 )
+				{		                    
+          			setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
+					document.getElementById("loginResult").innerHTML = " ";
+					return;
+				}
+		
+				firstName = jsonObject.firstName;
+				lastName = jsonObject.lastName;
+
+				saveCookie();
+				window.location.href = "main.html";
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("loginResult").innerHTML = err.message;
+	}
+
+}
+
 // Save User Profile as a cookie for 30 minutes
 function saveCookie()
 {

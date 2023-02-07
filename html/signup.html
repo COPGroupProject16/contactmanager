@@ -38,7 +38,7 @@
 
         <!-- New User Registration Form, runs signup.php -->
         <!-- ALL FIELDS ARE REQURIED -->
-        <form id = "signupForm" onsubmit = "signupCheck()" class = "text-center py-3">
+        <form id = "signupForm" class = "text-center py-3">
 
             <!-- First Name Field -->
             <div class="form-floating mb-3 form-check-inline justify-content-center">
@@ -76,7 +76,7 @@
             </div><br><br>
 
             <!-- Sign Up Button --> 
-            <button type="submit" class="btn btn-primary">Sign Up</button>
+            <button type="submit" onsubmit="doSignup();" class="btn btn-primary">Sign Up</button>
 
         </form>
         
