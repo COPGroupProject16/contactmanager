@@ -109,6 +109,19 @@ function readCookie()
 	}
 }
 
+// Sign Out Function
+function doLogout()
+{
+    // Reset Cookie Details
+	userId = 0;
+	firstName = "";
+	lastName = "";
+	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+
+    // Go pack to login page (index.html)
+	window.location.href = "index.html";
+}
+
 
 // Performs a validation of new username and password
 function signupCheck()
