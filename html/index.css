@@ -12,6 +12,13 @@ body
     background-color: #535252;
 }
 
+
+/* Incorrect Password Notification on index.html */
+.p 
+{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 /* Navigation Pills Layout */
 .nav 
 {
