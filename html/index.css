@@ -96,6 +96,20 @@ body
     color: #ffffff;
 }
 
+/* Greeting in main.html -- MOBILE VERSION */
+#helloBanner1
+{
+  --bs-nav-link-hover-color: #8a848a;
+  color: #8a848a;
+}
+
+/* Greeting in main.html -- DESKTOP VERSION */
+#helloBanner2
+{
+  --bs-nav-link-hover-color: #8a848a;
+  color: #8a848a;
+}
+
 /* Table of Contacts in main.html */
 .table-dark
 {

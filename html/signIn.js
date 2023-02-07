@@ -73,6 +73,42 @@ function showPass()
 	else { x.type = "password"; }
 }
 
+// Read in Cookie Details
+function readCookie()
+{
+	userId = -1;
+	let data = document.cookie;
+	let splits = data.split(",");
+
+	for(var i = 0; i < splits.length; i++) 
+	{
+		let thisOne = splits[i].trim();
+		let tokens = thisOne.split("=");
+		if( tokens[0] == "firstName" )
+		{
+			firstName = tokens[1];
+		}
+		else if( tokens[0] == "lastName" )
+		{
+			lastName = tokens[1];
+		}
+		else if( tokens[0] == "userId" )
+		{
+			userId = parseInt( tokens[1].trim() );
+		}
+	}
+	
+    // If there is no cookie AKA no user is signed in --> go to login page (index.html)
+	if( userId < 0 ) { window.location.href = "index.html";}
+	
+    // If there IS a saved user cookie --> go to home page (main.html)
+    else 
+	{ 
+		document.getElementById("helloBanner1").innerText = "Hello,  " + firstName + " " + lastName;
+		document.getElementById("helloBanner2").innerText = "Hello,  " + firstName + " " + lastName; 
+	}
+}
+
 
 // Performs a validation of new username and password
 function signupCheck()

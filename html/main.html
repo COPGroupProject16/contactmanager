@@ -16,9 +16,10 @@
     </head>
 
 
-    <body>
+    <body onload = "readCookie()">
         <!-- Import addContact()-->
         <script type="text/javascript" src="addContact.js"></script>
+        <script type="text/javascript" src="signIn.js"></script>
 
         <!-- MOBILE Page Layout -->
         <!-- For Screens 768px wide or less-->
@@ -36,7 +37,7 @@
 
           <!-- Greetings + Log Out Button -->
           <ul class="nav nav-pills justify-content-center">
-            <li class="nav-item"><a href="#" class="nav-link">Hello, FNAME LNAME</a></li>    <!-- Greetings NEED TO UPDATE THIS WITH ACCOUNT NAME-->
+            <li class="nav-item"><a id = "helloBanner1" href="#" class="nav-link disabled">Hello, FNAME LNAME</a></li>    <!-- Greetings -->
             <li class="nav-item"><a href="index.html" class="nav-link">Log Out</a></li>      <!-- Log Out Button NEED TO DELTE COOKIE DATA HERE-->
           </ul>
 
@@ -185,7 +186,7 @@
               
               <!-- Greetings + Log Out -->
               <ul class="nav nav-pills p-2">
-                    <li class="nav-item"><a href="#" class="nav-link">Hello, FNAME LNAME</a></li>   <!-- Greetings NEED TO UPDATE THIS WITH ACCOUNT NAME -->
+                    <li class="nav-item"><a href="#" class="nav-link disabled" id = "helloBanner2">Hello, FNAME LNAME</a></li>    <!-- Greetings -->
                     <li class="nav-item"><a href="index.html" class="nav-link">Log Out</a></li>     <!-- Log Out Button NEED TO DELETE COOKIE DATA HERE -->
               </ul>
 
