@@ -1,38 +1,32 @@
-
-
-
+// Login Function()
 function doLogin()
 {
-  const urlBase = 'http://COP4331-5.com/LAMPAPI';
-  const extension = 'php';
 	userId = 0;
 	firstName = "";
 	lastName = "";
 	
-	let login = document.getElementById("username").value;
-	let password = document.getElementById("password").value;
- 
-	var paragraph = document.getElementById("test");
-  paragraph.innerHTML = "testtest";
+	let user = document.getElementById("username").value;
+	let pass = document.getElementById("password").value;
 
-	let tmp = {login:login,password:password};
+	let jsonPayload = JSON.stringify({ username: user, password: pass });
  
-	let jsonPayload = JSON.stringify( tmp );
-	
-	let url = urlBase + '/Login.' + extension;
+ 
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/login.php';
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 
 	try
 	{
 		xhr.onreadystatechange = function() 
 		{
+			let jsonObject = JSON.parse(xhr.responseText);
+      console.log(jsonObject);
+			userId = jsonObject.id;
+
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				let jsonObject = JSON.parse( xhr.responseText );
-				userId = jsonObject.id;
-		
 				if( userId < 1 )
 				{		
 					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
@@ -43,8 +37,7 @@ function doLogin()
 				lastName = jsonObject.lastName;
 
 				saveCookie();
-	
-				window.location.href = "color.html";
+				window.location.href = "main.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -56,6 +49,14 @@ function doLogin()
 
 }
 
+// Save User Profile as a cookie for 30 minutes
+function saveCookie()
+{
+	let minutes = 30;
+	let date = new Date();
+	date.setTime(date.getTime()+(minutes*60*1000));	
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+}
 
 // Show Password Field on Login/Sign Up Page(s)
 function showPass() 
