@@ -7,6 +7,9 @@ function doLogin()
 	
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
+ 
+   console.log(user);
+   console.log(pass);
 
 	let jsonPayload = JSON.stringify({ username: user, password: pass });
  
@@ -63,20 +66,18 @@ function doSignup()
 	let password = document.getElementById("password").value;
 	let passwordCheck = document.getElementById("passwordCheck").value;
 
-	// Passwords Must Match
-	if(password.value != passwordCheck.value)
-	{
-		return;
-	}
-
 	let jsonPayload = JSON.stringify({ username: username, password: password, firstName: firstName, lastName: lastName});
+	console.log(jsonPayload);
  
  
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/signup.php';
 
+  
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 
+   console.log("HERE3");
  
 	try
 	{
