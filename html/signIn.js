@@ -23,7 +23,7 @@ function doLogin()
 		xhr.onreadystatechange = function() 
 		{
 			let jsonObject = JSON.parse(xhr.responseText);
-      console.log(jsonObject);
+      		console.log(jsonObject);
 			userId = jsonObject.id;
 
 			if (this.readyState == 4 && this.status == 200) 
@@ -36,6 +36,8 @@ function doLogin()
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
+
+				saveCookie();
 
 	
 				window.location.href = "main.html";
@@ -62,6 +64,61 @@ function showPass()
 
     if (x.type === "password") { x.type = "text"; }
 	else { x.type = "password"; }
+}
+
+// Save User Profile as a cookie for 30 minutes
+function saveCookie()
+{
+	let minutes = 30;
+	let date = new Date();
+	date.setTime(date.getTime()+(minutes*60*1000));	
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+}
+
+
+// Read in Cookie Details
+function readCookie()
+{
+	userId = -1;
+	let data = document.cookie;
+	let splits = data.split(",");
+
+	for(var i = 0; i < splits.length; i++) 
+	{
+		let thisOne = splits[i].trim();
+		let tokens = thisOne.split("=");
+		if( tokens[0] == "firstName" )
+		{
+			firstName = tokens[1];
+		}
+		else if( tokens[0] == "lastName" )
+		{
+			lastName = tokens[1];
+		}
+		else if( tokens[0] == "userId" )
+		{
+			userId = parseInt( tokens[1].trim() );
+		}
+	}
+	
+    // If there is no cookie AKA no user is signed in --> go to login page (index.html)
+	if( userId < 0 ) { window.location.href = "index.html";}
+	
+    // If there IS a saved user cookie --> go to home page (main.html)
+    else { document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName; }
+}
+
+// Sign Out Function
+function doLogout()
+{
+    // Reset Cookie Details
+	userId = 0;
+	firstName = "";
+	lastName = "";
+	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+
+    // Go pack to login page (index.html)
+	window.location.href = "index.html";
 }
 
 
