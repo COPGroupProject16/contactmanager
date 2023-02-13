@@ -28,8 +28,10 @@ function doLogin()
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				if( userId < 1 )
-				{		
-					document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+				{		                    
+          // Blink Effect 
+ 			    setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
+					document.getElementById("loginResult").innerHTML = " ";
 					return;
 				}
 		
