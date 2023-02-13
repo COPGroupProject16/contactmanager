@@ -8,14 +8,25 @@ function doLogin()
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
 
+	// Make Sure Input Fields are Valid (Not Empty AND Not Only Whitespaces)
+	if (user == "" || user.trim().length == 0) 
+	{
+		alert("Username is Required");
+		return;
+	}
+	if (pass == "" || pass.trim().length == 0) 
+	{
+		alert("Password is Required");
+		return;
+	}
+
+
 	let jsonPayload = JSON.stringify({ username: user, password: pass });
- 
- 
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/login.php';
  
 
 	let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true); // The Error Happens Here
+  	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
  
 	try
@@ -29,8 +40,8 @@ function doLogin()
 			{
 				if( userId < 1 )
 				{		                    
-          // Blink Effect 
- 			    setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
+          			// Blink Effect 
+ 			    	setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
 					document.getElementById("loginResult").innerHTML = " ";
 					return;
 				}
@@ -38,7 +49,7 @@ function doLogin()
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
-        saveCookie();
+        		saveCookie();
 				window.location.href = "main.html";
 			}
 		};
@@ -63,6 +74,41 @@ function doSignup()
 	let lName = document.getElementById("lastname").value;
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
+	let passCheck = document.getElementById("passwordcheck").value;
+
+	// Make Sure Input Fields are Valid (Not Empty AND Not Only Whitespaces)
+	if (fName == "" || fName.trim().length == 0) 
+	{
+		alert("First Name is Required");
+		return;
+	}
+	if (lName == "" || lName.trim().length == 0) 
+	{
+		alert("Last Name is Required");
+		return;
+	}
+	if (user == "" || user.trim().length == 0) 
+	{
+		alert("Username is Required");
+		return;
+	}
+	if (pass == "" || pass.trim().length == 0) 
+	{
+		alert("Password is Required");
+		return;
+	}
+	if (passCheck == "" || passCheck.trim().length == 0) 
+	{
+		alert("Password Must Be Typed Twice");
+		return;
+	}
+
+	// Make Sure Passwords Match
+	if(pass != passCheck)
+	{
+		alert("Passwords Must Match")
+		return;
+	}
 
 	// Stringify Input
 	let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: fName, lastName: lName });
@@ -83,25 +129,24 @@ function doSignup()
 
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				// User Does Not Exist --> Create User
-				if( userId < 1 )
+				// User already exists --> Return Error
+				if(userId < 1)
 				{		 
+         		 	// Blink Effect 
+					  setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username Already Taken";},250);   
+					  document.getElementById("loginResult").innerHTML = " ";
+					  return;              
+				}
+				
+				// User Does Not Exist --> Create User
+				else
+				{
 					firstName = jsonObject.firstName;
 					lastName = jsonObject.lastName;
 	
 					saveCookie();
-					window.location.href = "main.html";                   
+					window.location.href = "main.html";        
 				}
-				
-				// User already exists --> Return Error
-				else
-				{
-         		 	// Blink Effect 
- 			    	setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
-					document.getElementById("loginResult").innerHTML = " ";
-					return;
-				}
-		
 			}
 		};
 		xhr.send(jsonPayload);
@@ -121,7 +166,7 @@ function showPass()
     if (x.type === "password") { x.type = "text"; } 
 	else { x.type = "password"; }
 
-    x = document.getElementById("passwordCheck");
+    x = document.getElementById("passwordcheck");
 
     if (x.type === "password") { x.type = "text"; }
 	else { x.type = "password"; }
@@ -186,21 +231,4 @@ function doLogout()
 
     // Go pack to login page (index.html)
 	window.location.href = "index.html";
-}
-
-
-// Performs a validation of new username and password
-function signupCheck()
-{
-  // Get Username and Passwords
-  var username = document.getElementById("username").value;
-
-  var password = document.getElementById("password").value;
-  var passwordCheck = document.getElementById("passwordCheck").value;
-
-  // Check if username is already taken
-
-  // Check if passwords match
-
-  // Check if password is 8+ characters long
-}
+}						
