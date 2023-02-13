@@ -59,13 +59,13 @@ function doSignup()
 	lastName = "";
 
 	// Grab User Input
-	let Fname = document.getElementById("firstname").value;
-	let Lname = document.getElementById("lastname").value;
+	let fName = document.getElementById("firstname").value;
+	let lName = document.getElementById("lastname").value;
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
 
 	// Stringify Input
-	let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: firstName, lastName: lastName });
+	let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: fName, lastName: lName });
  
 	// Get Proper URL
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/signup.php';
