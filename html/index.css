@@ -91,6 +91,18 @@ body
     margin-left: 30%;
 }
 
+/* Edit Button(s) on main.html */
+.btn-outline-primary 
+{
+  --bs-btn-active-bg: #729de9;
+}
+
+/* Deletes Button(s) on main.html */
+.btn-outline-warning
+{
+  --bs-btn-active-bg: #df7e88;
+}
+
 /* Header Title on main.html */
 .fs-4
 {
