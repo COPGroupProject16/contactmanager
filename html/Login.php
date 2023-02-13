@@ -1,27 +1,25 @@
 
 <?php
 
-	// Get User Input
 	$inData = getRequestInfo();
-	
-	$id = 0;
-	$firstName = "";
+ 	$firstName = "";
 	$lastName = "";
-
-	// Connect to MySQL database
-	$conn = new mysqli("142.93.53.159", "root", "c4546bd160ab1858964dbd7193c530cde5344f42cfb1c932", "cm_database"); 	
+  $id = 0;
+	
+	// Connect to SQL database
+	$conn = new mysqli ("localhost", "PHP_Script", "ucf2024","cm_database"); 	
 	
 	// Case: Connection Failed
 	if( $conn->connect_error )
 	{
-		returnWithError( $conn->connect_error );
+		//returnWithError("Connection failed: " . $conn->connect_error );
+		die("Connection failed: " . mysqli_connect_error());
 	}
-
 	// Case: Connection Succeeded 
 	else
-	{
-		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM Users WHERE Login=? AND Password =?");
-		$stmt->bind_param("ss", $inData["login"], $inData["password"]);
+	{		
+		$stmt = $conn->prepare("SELECT ID,firstName,lastName FROM user WHERE username=? AND password =?");
+		$stmt->bind_param("ss", $inData["username"], $inData["password"]);
 		$stmt->execute();
 		$result = $stmt->get_result();
 
@@ -38,6 +36,7 @@
 		$stmt->close();
 		$conn->close();
 	}
+  
 	
 	function getRequestInfo()
 	{
@@ -52,7 +51,7 @@
 	
 	function returnWithError( $err )
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
+		$retValue = '{"id":0,"firstName":" ","lastName":" ","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	

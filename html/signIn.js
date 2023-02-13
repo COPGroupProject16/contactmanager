@@ -11,11 +11,11 @@ function doLogin()
 	let jsonPayload = JSON.stringify({ username: user, password: pass });
  
  
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/login.php';
  
-	let url = 'http://142.93.53.159/login.php';
 
 	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true);
+  xhr.open("POST", url, true); // The Error Happens Here
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
  
 	try
@@ -23,7 +23,6 @@ function doLogin()
 		xhr.onreadystatechange = function() 
 		{
 			let jsonObject = JSON.parse(xhr.responseText);
-      		console.log(jsonObject);
 			userId = jsonObject.id;
 
 			if (this.readyState == 4 && this.status == 200) 
@@ -37,13 +36,11 @@ function doLogin()
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
-				saveCookie();
-
-	
+        saveCookie();
 				window.location.href = "main.html";
 			}
 		};
-		xhr.send(jsonPayload);
+		xhr.send(jsonPayload); // THE 
 	}
 	catch(err)
 	{
@@ -73,8 +70,8 @@ function saveCookie()
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
+  console.log(document.cookie);
 }
-
 
 // Read in Cookie Details
 function readCookie()
@@ -87,6 +84,7 @@ function readCookie()
 	{
 		let thisOne = splits[i].trim();
 		let tokens = thisOne.split("=");
+
 		if( tokens[0] == "firstName" )
 		{
 			firstName = tokens[1];
@@ -100,13 +98,18 @@ function readCookie()
 			userId = parseInt( tokens[1].trim() );
 		}
 	}
-	
+
     // If there is no cookie AKA no user is signed in --> go to login page (index.html)
 	if( userId < 0 ) { window.location.href = "index.html";}
-	
+
     // If there IS a saved user cookie --> go to home page (main.html)
-    else { document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName; }
+    else 
+	{ 
+		document.getElementById("helloBanner1").innerText = "Hello,  " + firstName + " " + lastName;
+		document.getElementById("helloBanner2").innerText = "Hello,  " + firstName + " " + lastName; 
+	}
 }
+
 
 // Sign Out Function
 function doLogout()
