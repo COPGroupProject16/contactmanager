@@ -50,60 +50,60 @@
             </div>
           </div>
 
-          <!-- Contacts Table -->
+          <!-- Contact Table NEED TO FILL THIS WITH USER DATA -->
           <div class="col-sm-10 justify-content-center">
-            <table id = "contactlist" class="table table-responsive px-2 table-dark">
 
-                <!-- Table Headers-->
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Email Address</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Date Added</th>
-                    <th scope="col">Edit/Delete</th>
-                  </tr>
-                </thead>
+              <table id = "contactlist" class="table table-responsive px-2 table-dark">
 
-                <!-- Table Body NEED TO UPDATE THIS SO IT FILLS WITH USER CONTACTS-->
-                <tbody>
+                  <!-- Table Headers -->
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">First Name</th>
+                      <th scope="col">Last Name</th>
+                      <th scope="col">Email Address</th>
+                      <th scope="col">Phone Number</th>
+                      <th scope="col">Date Added</th>
+                      <th scope="col">Edit/Delete</th>
+                    </tr>
+                  </thead>
 
-                  <!-- Example Filler Items -->
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
-                    <td>123-456-7890</td>
-                    <td>1.31.23</td>
-                    <td><button type="submit" id = "editbutton" onclick="addContact()" class="btn btn-primary"></button><button type="submit" id = "deletebutton" onclick="addContact()" class="btn btn-primary"></button><br></td>
-                
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    <td>123-456-7890</td>
-                    <td>1.31.23</td>
-                    <td><button type="submit" id = "editbutton" onclick="addContact()" class="btn btn-primary"></button><button type="submit" id = "deletebutton" onclick="addContact()" class="btn btn-primary"></button><br></td>
+                  <!-- Table Data FILLED WITH TEST DATA FOR NOW -->
+                  <tbody>
+                    <tr>
+                      <th scope="row">1</th>
+                      <td>Mark</td>
+                      <td>Otto</td>
+                      <td>@mdo</td>
+                      <td>123-456-7890</td>
+                      <td>1.31.23</td>
+                      <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
 
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    <td>123-456-7890</td>
-                    <td>1.31.23</td>
-                    <td><button type="submit" id = "editbutton" onclick="addContact()" class="btn btn-primary"></button><button type="submit" id = "deletebutton" onclick="addContact()" class="btn btn-primary"></button><br></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">2</th>
+                      <td>Jacob</td>
+                      <td>Thornton</td>
+                      <td>@fat</td>
+                      <td>123-456-7890</td>
+                      <td>1.31.23</td>  
+                      <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
 
-                  </tr>
-                </tbody>
+                    </tr>
+                    <tr>
+                      <th scope="row">3</th>
+                      <td>Larry</td>
+                      <td>the Bird</td>
+                      <td>@twitter</td>
+                      <td>123-456-7890</td>
+                      <td>1.31.23</td>
+                      <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
+
+                    </tr>
+                  </tbody>
 
               </table>
+
           </div>
 
           <!-- Add Contact Sidebar -->
@@ -111,36 +111,36 @@
             <div class=""d-flex flex-column flex-shrink-0 p-3 text-white style="width: 100%;">
               <ul class="nav nav-pills flex-column mb-auto">
                 <!-- Existing User Login Form, runs addContact.php NEED TO ADD FUNCTIONALITY TO THIS -->
-                <form class = "">
+                <form id = "mobileAdd" class = "">
         
-                <!-- First Name Field -->
-                <div class="form-group form-check-inline">
-                    <label> First Name:</label>
-                    <input type="text" class="form-control" id="firstname" placeholder="" required>
-                </div><br><br>
+                  <!-- First Name Field -->
+                  <div class="form-group form-check-inline">
+                      <label> First Name:</label>
+                      <input type="text" class="form-control" id="firstname-m" placeholder="" required>
+                  </div><br><br>
 
-                <!-- Last Name Field -->
-                <div class="form-group form-check-inline">
-                    <label>Last Name:</label>
-                    <input type="text" class="form-control" id="lastname" placeholder="" required>
-                </div><br><br>
+                  <!-- Last Name Field -->
+                  <div class="form-group form-check-inline">
+                      <label>Last Name:</label>
+                      <input type="text" class="form-control" id="lastname-m" placeholder="" required>
+                  </div><br><br>
 
-                <!-- Email Address Field -->
-                <div class="form-group form-check-inline">
-                    <label>Email Address:</label>
-                    <input type="text" class="form-control" id="email" placeholder="">
-                </div><br><br>
+                  <!-- Email Address Field -->
+                  <div class="form-group form-check-inline">
+                      <label>Email Address:</label>
+                      <input type="text" class="form-control" id="email-m" placeholder="">
+                  </div><br><br>
 
-                <!-- Phone Number Field -->
-                <div class="form-group form-check-inline">
-                    <label>Phone Number:</label>
-                    <input type="text" class="form-control" id="phonenum" placeholder="">
-                </div><br><br>
+                  <!-- Phone Number Field -->
+                  <div class="form-group form-check-inline">
+                      <label>Phone Number:</label>
+                      <input type="text" class="form-control" id="phonenum-m" placeholder="">
+                  </div><br><br>
 
-                <!-- Login Button -->  
-                <div class = "text-center">
-                    <button type="submit" onclick="addContact()" class="btn btn-primary">Add Contact</button><br>
-                </div><br>
+                  <!-- Login Button -->  
+                  <div class = "text-center">
+                      <button type="submit" onclick="addContact('mobileAdd')" class="btn btn-primary">Add Contact</button><br>
+                  </div><br>
 
                 </form>
               </ul>
@@ -205,7 +205,7 @@
                           <ul class="nav nav-pills flex-column mb-auto">
               
                             <!-- Existing User Login Form, runs addContact.php NEED TO ADD FUNCTIONALITY HERE -->
-                            <form>
+                            <form id = "desktopAdd">
                       
                                 <!-- First Name Field -->
                                 <div class="form-group">
@@ -233,7 +233,7 @@
             
                                 <!-- Login Button NEED TO ADD FUNCTIONALITY -->  
                                 <div class = "text-center">
-                                    <button type="submit" onclick="addContact()" class="btn btn-primary">Add Contact</button><br>
+                                    <button type="button" onclick="addContact('desktopAdd');" class="btn btn-primary">Add Contact</button><br>
                                 </div><br>
 
                             </form>
@@ -270,7 +270,7 @@
                                 <td>@mdo</td>
                                 <td>123-456-7890</td>
                                 <td>1.31.23</td>
-                                <td><button type="submit" id = "editbutton" onclick="addContact()" class="btn btn-primary"></button><button type="submit" id = "deletebutton" onclick="addContact()" class="btn btn-primary"></button><br></td>
+                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
 
                               </tr>
                               <tr>
@@ -279,8 +279,8 @@
                                 <td>Thornton</td>
                                 <td>@fat</td>
                                 <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="submit" id = "editbutton" onclick="addContact()" class="btn btn-primary"></button><button type="submit" id = "deletebutton" onclick="addContact()" class="btn btn-primary"></button><br></td>
+                                <td>1.31.23</td>  
+                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
 
                               </tr>
                               <tr>
@@ -290,7 +290,7 @@
                                 <td>@twitter</td>
                                 <td>123-456-7890</td>
                                 <td>1.31.23</td>
-                                <td><button type="submit" id = "editbutton" onclick="addContact()" class="btn btn-primary"></button><button type="submit" id = "deletebutton" onclick="addContact()" class="btn btn-primary"></button><br></td>
+                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
 
                               </tr>
                             </tbody>
@@ -307,6 +307,7 @@
 
         </nav>
 
+        <p id = "userID" style="display:none;"></p>
     </body>
 
 </html>

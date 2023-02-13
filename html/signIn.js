@@ -178,16 +178,17 @@ function saveCookie()
 	let minutes = 30;
 	let date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
-  console.log(document.cookie);
+	document.cookie = "firstName=" + firstName + ";" + "expires=" + date.toGMTString();
+	document.cookie = "lastName=" + lastName + ";" + "expires=" + date.toGMTString();
+	document.cookie = "userId=" + userId + ";" + "expires=" + date.toGMTString();
+  	console.log(document.cookie);
 }
 
 // Read in Cookie Details
 function readCookie()
 {
-	userId = -1;
 	let data = document.cookie;
-	let splits = data.split(",");
+	let splits = data.split(";");
 
 	for(var i = 0; i < splits.length; i++) 
 	{
@@ -216,6 +217,7 @@ function readCookie()
 	{ 
 		document.getElementById("helloBanner1").innerText = "Hello,  " + firstName + " " + lastName;
 		document.getElementById("helloBanner2").innerText = "Hello,  " + firstName + " " + lastName; 
+		document.getElementById("userID").innerText = userId;
 	}
 }
 
@@ -231,4 +233,115 @@ function doLogout()
 
     // Go pack to login page (index.html)
 	window.location.href = "index.html";
-}						
+}		
+
+// addContact Function on main.html
+function addContact(formName)
+{
+	// Get User Input
+	//let firstname = document.querySelector("#" + formName + " [name=firstname]").value;
+	//let lastname = document.querySelector("#" + formName + " [name=lastname]").value;
+	//let email = document.querySelector("#" + formName + " [name=email]").value;
+	//let phonenum = document.querySelector("#" + formName + " [name=phonenum]").value;
+	//console.log(formName);
+
+	let firstname = "";
+	let lastname = "";
+	let email = "";
+	let phonenum = "";
+
+	// Add Contact from Mobile Version
+	if(formName == "mobileAdd")
+	{
+		firstname = document.getElementById("firstname-m").value;
+		lastname = document.getElementById("lastname-m").value;
+		email = document.getElementById("email-m").value;
+		phonenum = document.getElementById("phonenum-m").value;
+	}
+
+	// Addd Contact from Desktop Version
+	else
+	{
+		firstname = document.getElementById("firstname").value;
+		lastname = document.getElementById("lastname").value;
+		email = document.getElementById("email").value;
+		phonenum = document.getElementById("phonenum").value;
+	}
+
+	// Get UserID
+	let userId = parseInt(document.getElementById("userID").innerText);
+
+	// Get Today's Date (MM/DD/YYYY)
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0');
+	var yyyy = today.getFullYear();
+	
+	today = mm + '/' + dd + '/' + yyyy;
+	//console.log(today);
+
+	// Make Sure Input Fields are Valid (Not Empty AND Not Only Whitespaces)
+	if (firstname == "" || firstname.trim().length == 0) 
+	{
+		alert("First Name is Required");
+		return;
+	}
+	if (lastname == "" || lastname.trim().length == 0) 
+	{
+		alert("Last Name is Required");
+		return;
+	}
+	if (email == "" || email.trim().length == 0) 
+	{
+		alert("Email Address is Required");
+		return;
+	}
+	if (phonenum == "" || phonenum.trim().length == 0) 
+	{
+		alert("Phone Number is Required");
+		return;
+	}
+
+	// Stringify Input
+	let jsonPayload = JSON.stringify({firstname: firstname, lastname: lastname, email: email, phonenum: phonenum, userId: userId, adddate: today});
+	//console.log(jsonPayload);
+
+	// Get Proper URL
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/addContact.php';
+
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			let jsonObject = JSON.parse(xhr.responseText);
+			userId = jsonObject.id;
+
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				// User already exists --> Return Error
+				if(userId < 1)
+				{		 
+						// Blink Effect 
+						setTimeout(function(){document.getElementById("loginResult").innerHTML = "Contact Not Added";},250);   
+						document.getElementById("loginResult").innerHTML = " ";
+						return;              
+				}
+				
+				// User Does Not Exist --> Create User
+				else
+				{
+					window.location.href = "main.html";        
+				}
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("loginResult").innerHTML = err.message;
+	}
+}
