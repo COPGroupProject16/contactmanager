@@ -8,18 +8,9 @@ function doLogin()
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
 
-	// Make Sure Input Fields are Valid (Not Empty AND Not Only Whitespaces)
-	if (user == "" || user.trim().length == 0) 
-	{
-		alert("Username is Required");
-		return;
-	}
-	if (pass == "" || pass.trim().length == 0) 
-	{
-		alert("Password is Required");
-		return;
-	}
-
+	// Make Sure Input Fields are Valid (Not Empty) Return if missing input
+   var form = document.querySelector('form');
+   if(form.reportValidity() == false) { return; }
 
 	let jsonPayload = JSON.stringify({ username: user, password: pass });
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/login.php';
@@ -76,32 +67,9 @@ function doSignup()
 	let pass = document.getElementById("password").value;
 	let passCheck = document.getElementById("passwordcheck").value;
 
-	// Make Sure Input Fields are Valid (Not Empty AND Not Only Whitespaces)
-	if (fName == "" || fName.trim().length == 0) 
-	{
-		alert("First Name is Required");
-		return;
-	}
-	if (lName == "" || lName.trim().length == 0) 
-	{
-		alert("Last Name is Required");
-		return;
-	}
-	if (user == "" || user.trim().length == 0) 
-	{
-		alert("Username is Required");
-		return;
-	}
-	if (pass == "" || pass.trim().length == 0) 
-	{
-		alert("Password is Required");
-		return;
-	}
-	if (passCheck == "" || passCheck.trim().length == 0) 
-	{
-		alert("Password Must Be Typed Twice");
-		return;
-	}
+	// Make Sure Input Fields are Valid (Not Empty)
+	var form = document.querySelector('form');
+	if(form.reportValidity() == false) { return; }
 
 	// Make Sure Passwords Match
 	if(pass != passCheck)
@@ -181,7 +149,7 @@ function saveCookie()
 	document.cookie = "firstName=" + firstName + ";" + "expires=" + date.toGMTString();
 	document.cookie = "lastName=" + lastName + ";" + "expires=" + date.toGMTString();
 	document.cookie = "userId=" + userId + ";" + "expires=" + date.toGMTString();
-  	console.log(document.cookie);
+  	//console.log(document.cookie);
 }
 
 // Read in Cookie Details
@@ -229,6 +197,11 @@ function doLogout()
 	userId = 0;
 	firstName = "";
 	lastName = "";
+
+	// Clear ALL Cookies
+	document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
+
+	// Then throw in this as a filler 
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 
     // Go pack to login page (index.html)
@@ -253,6 +226,9 @@ function addContact(formName)
 	// Add Contact from Mobile Version
 	if(formName == "mobileAdd")
 	{
+		// Check that all fields are present
+		if(document.getElementById(formName).reportValidity() == false) { return; }
+
 		firstname = document.getElementById("firstname-m").value;
 		lastname = document.getElementById("lastname-m").value;
 		email = document.getElementById("email-m").value;
@@ -262,6 +238,8 @@ function addContact(formName)
 	// Addd Contact from Desktop Version
 	else
 	{
+		if(document.getElementById(formName).reportValidity() == false) { return; }
+
 		firstname = document.getElementById("firstname").value;
 		lastname = document.getElementById("lastname").value;
 		email = document.getElementById("email").value;
@@ -280,27 +258,9 @@ function addContact(formName)
 	today = mm + '/' + dd + '/' + yyyy;
 	//console.log(today);
 
-	// Make Sure Input Fields are Valid (Not Empty AND Not Only Whitespaces)
-	if (firstname == "" || firstname.trim().length == 0) 
-	{
-		alert("First Name is Required");
-		return;
-	}
-	if (lastname == "" || lastname.trim().length == 0) 
-	{
-		alert("Last Name is Required");
-		return;
-	}
-	if (email == "" || email.trim().length == 0) 
-	{
-		alert("Email Address is Required");
-		return;
-	}
-	if (phonenum == "" || phonenum.trim().length == 0) 
-	{
-		alert("Phone Number is Required");
-		return;
-	}
+	// Filler if no Email or Phone Number Entered
+	if (email == "" || email.trim().length == 0) { email = "-"; }
+	if (phonenum == "" || phonenum.trim().length == 0) { email = "-"; }
 
 	// Stringify Input
 	let jsonPayload = JSON.stringify({firstname: firstname, lastname: lastname, email: email, phonenum: phonenum, userId: userId, adddate: today});
