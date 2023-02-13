@@ -22,7 +22,7 @@
 		$result = $stmt->get_result();
 		
 		// Random echo
-		echo "Hello World";
+		// echo "Hello World";
 
 		// Return an error if the user already exists
 		if( $row = $result->fetch_assoc()  )

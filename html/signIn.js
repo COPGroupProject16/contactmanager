@@ -51,6 +51,68 @@ function doLogin()
 
 }
 
+// Signup Function()
+function doSignup()
+{
+	userId = 0;
+	firstName = "";
+	lastName = "";
+
+	// Grab User Input
+	let Fname = document.getElementById("firstname").value;
+	let Lname = document.getElementById("lastname").value;
+	let user = document.getElementById("username").value;
+	let pass = document.getElementById("password").value;
+
+	// Stringify Input
+	let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: firstName, lastName: lastName });
+ 
+	// Get Proper URL
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/signup.php';
+ 
+	let xhr = new XMLHttpRequest();
+  	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ 
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			let jsonObject = JSON.parse(xhr.responseText);
+			userId = jsonObject.id;
+
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				// User Does Not Exist --> Create User
+				if( userId < 1 )
+				{		 
+					firstName = jsonObject.firstName;
+					lastName = jsonObject.lastName;
+	
+					saveCookie();
+					window.location.href = "main.html";                   
+				}
+				
+				// User already exists --> Return Error
+				else
+				{
+         		 	// Blink Effect 
+ 			    	setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
+					document.getElementById("loginResult").innerHTML = " ";
+					return;
+				}
+		
+			}
+		};
+		xhr.send(jsonPayload);
+	}
+	catch(err)
+	{
+		document.getElementById("loginResult").innerHTML = err.message;
+	}
+
+}
+
 // Show Password Field on Login/Sign Up Page(s)
 function showPass() 
 {
