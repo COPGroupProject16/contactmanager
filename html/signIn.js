@@ -9,9 +9,9 @@ function doLogin()
 	let pass = document.getElementById("password").value;
 
 	// Hash Password
-	var hash = md5( password );
-  hash = hash.substr(0, 25);
-  //console.log(hash);
+	var hash = md5(pass);
+  	hash = hash.substr(0, 25);
+  	//console.log(hash);
 
 	// Make Sure Input Fields are Valid (Not Empty) Return if missing input
    	var form = document.querySelector('form');
@@ -86,8 +86,8 @@ function doSignup()
 	}
 
 	// Hash Password
-	var hash = md5( password );
-  hash = hash.substr(0, 25);
+	var hash = md5( pass );
+  	hash = hash.substr(0, 25);
 
 	// Stringify Input
 	//let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: fName, lastName: lName });
