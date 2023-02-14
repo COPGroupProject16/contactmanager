@@ -8,14 +8,14 @@ function doLogin()
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
 
-	// Hash Password
-	var hash = md5(pass);
-  	hash = hash.substr(0, 25);
-  	//console.log(hash);
-
 	// Make Sure Input Fields are Valid (Not Empty) Return if missing input
    	var form = document.querySelector('form');
    	if(form.reportValidity() == false) { return; }
+
+	// Hash Password
+	var hash = md5(pass);
+	hash = hash.substr(0, 25); // Only Grab 1st 25 Characters
+	//console.log(hash);
 
 	//let jsonPayload = JSON.stringify({ username: user, password: pass });
 	let jsonPayload = JSON.stringify({username:user,password:hash});
@@ -299,13 +299,13 @@ function addContact(formName)
 				// User already exists --> Return Error
 				if(userId < 1)
 				{		 
-						// Blink Effect 
-						setTimeout(function(){document.getElementById("loginResult").innerHTML = "Contact Not Added";},250);   
-						document.getElementById("loginResult").innerHTML = " ";
-						return;              
+					// Blink Effect 
+					setTimeout(function(){document.getElementById("loginResult").innerHTML = "Contact Not Added";},250);   
+					document.getElementById("loginResult").innerHTML = " ";
+					return;              
 				}
 				
-				// User Does Not Exist --> Create User
+				// User Does Not Exist --> Create User and Proceed
 				else
 				{
 					window.location.href = "main.html";        
