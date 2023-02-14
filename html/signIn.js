@@ -8,11 +8,16 @@ function doLogin()
 	let user = document.getElementById("username").value;
 	let pass = document.getElementById("password").value;
 
-	// Make Sure Input Fields are Valid (Not Empty) Return if missing input
-   var form = document.querySelector('form');
-   if(form.reportValidity() == false) { return; }
+	// Hash Password
+	var hash = md5( password );
 
-	let jsonPayload = JSON.stringify({ username: user, password: pass });
+	// Make Sure Input Fields are Valid (Not Empty) Return if missing input
+   	var form = document.querySelector('form');
+   	if(form.reportValidity() == false) { return; }
+
+	//let jsonPayload = JSON.stringify({ username: user, password: pass });
+	let jsonPayload = JSON.stringify({login:login,password:hash});
+	
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/login.php';
  
 
@@ -78,8 +83,13 @@ function doSignup()
 		return;
 	}
 
+	// Hash Password
+	var hash = md5( password );
+
 	// Stringify Input
-	let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: fName, lastName: lName });
+	//let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: fName, lastName: lName });
+	let jsonPayload = JSON.stringify({ username: user, password: hash, firstName: fName, lastName: lName });
+
  
 	// Get Proper URL
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/signup.php';
