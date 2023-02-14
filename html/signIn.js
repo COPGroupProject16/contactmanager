@@ -191,7 +191,8 @@ function readCookie()
 	}
 
     // If there is no cookie AKA no user is signed in --> go to login page (index.html)
-	if( userId < 0 ) { window.location.href = "index.html";}
+	//if( userId < 0 ) { window.location.href = "index.html";}
+	if (document.cookie.indexOf('userId') == -1 ) { window.location.href = "index.html"; }
 
     // If there IS a saved user cookie --> go to home page (main.html)
     else 
