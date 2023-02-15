@@ -9,7 +9,7 @@ function doLogin()
 	let pass = document.getElementById("password").value;
 
 	// Make Sure Input Fields are Valid (Not Empty) Return if missing input
-   	var form = document.querySelector('form');
+   	var form = document.getElementById('loginForm');
    	if(form.reportValidity() == false) { return; }
 
 	// Hash Password
@@ -19,6 +19,7 @@ function doLogin()
 
 	//let jsonPayload = JSON.stringify({ username: user, password: pass });
 	let jsonPayload = JSON.stringify({username:user,password:hash});
+	console.log(jsonPayload);
 	
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + '/login.php';
  
@@ -39,8 +40,8 @@ function doLogin()
 				if( userId < 1 )
 				{		                    
           			// Blink Effect 
- 			    	setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username/Password Combination Incorrect";},250);   
-					document.getElementById("loginResult").innerHTML = " ";
+ 			    	setTimeout(function(){document.getElementById("loginResult1").innerHTML = "Username/Password Combination Incorrect";},250);   
+					document.getElementById("loginResult1").innerHTML = " ";
 					return;
 				}
 		
@@ -55,7 +56,7 @@ function doLogin()
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("loginResult1").innerHTML = err.message;
 	}
 
 }
@@ -68,14 +69,14 @@ function doSignup()
 	lastName = "";
 
 	// Grab User Input
-	let fName = document.getElementById("firstname").value;
-	let lName = document.getElementById("lastname").value;
-	let user = document.getElementById("username").value;
-	let pass = document.getElementById("password").value;
-	let passCheck = document.getElementById("passwordcheck").value;
+	let fName = document.getElementById("firstnameCreate").value;
+	let lName = document.getElementById("lastnameCreate").value;
+	let user = document.getElementById("usernameCreate").value;
+	let pass = document.getElementById("passwordCreate").value;
+	let passCheck = document.getElementById("passwordcheckCreate").value;
 
 	// Make Sure Input Fields are Valid (Not Empty)
-	var form = document.querySelector('form');
+	var form = document.getElementById('signupForm');
 	if(form.reportValidity() == false) { return; }
 
 	// Make Sure Passwords Match
@@ -92,6 +93,7 @@ function doSignup()
 	// Stringify Input
 	//let jsonPayload = JSON.stringify({ username: user, password: pass, firstName: fName, lastName: lName });
 	let jsonPayload = JSON.stringify({ username: user, password: hash, firstName: fName, lastName: lName });
+	console.log(jsonPayload);
 
  
 	// Get Proper URL
@@ -114,8 +116,8 @@ function doSignup()
 				if(userId < 1)
 				{		 
          		 	// Blink Effect 
-					  setTimeout(function(){document.getElementById("loginResult").innerHTML = "Username Already Taken";},250);   
-					  document.getElementById("loginResult").innerHTML = " ";
+					  setTimeout(function(){document.getElementById("loginResult2").innerHTML = "Username Already Taken";},250);   
+					  document.getElementById("loginResult2").innerHTML = " ";
 					  return;              
 				}
 				
@@ -134,7 +136,7 @@ function doSignup()
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		document.getElementById("loginResult2").innerHTML = err.message;
 	}
 
 }

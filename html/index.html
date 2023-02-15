@@ -1,4 +1,4 @@
-<!-- LOGIN PAGE -->
+<!-- LOGIN/SIGN UP PAGE -->
 <html lang = "en">
     
     <head>
@@ -20,80 +20,145 @@
     <!-- All items are centered -->
     <body style = "text-align: center;">
 
-        <!-- Import showPassword() -->
+        <!-- Import Javascript -->
         <script type="text/javascript" src="signIn.js"></script>
         <script type="text/javascript" src="md5.js"></script>
 
-        <!-- Navigation Pills -->        
-        <div class="container">
-            <header class="d-flex justify-content-center py-3">
-              <ul class="nav nav-pills">
-                <li class="nav-item"><a href="#" class="nav-link active">Login</a></li>         <!-- Login Pill (active) -->
-                <li class="nav-item"><a href="signup.html" class="nav-link">Sign Up</a></li>    <!-- Sign Up Pill-->
-              </ul>
-            </header>
-        </div>
-        
-        <!-- Main Title Header -->
-        <h1 class = "text-center py-3"> Contact Manager Login </h1> <br><br><br><br>
-
-        <!-- Existing User Login Form -->
-        <!-- ALL FIELDS ARE REQURIED -->
-        <form class = "text-center py-3">
+        <!-- Navigation Pills -->
+        <ul class="nav nav-pills mb-3 d-flex justify-content-center py-3" id="pills-tab" role="tablist">
             
-            <!-- Username Field -->
-            <div class="form-floating mb-3 form-check-inline justify-content-center">
-                <input type="username" class="form-control" id="username" placeholder="placeholder" required>
-                <label for="floatingInput">Username</label>
-            </div><br>
+            <!-- Login Pill -->
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Login</button>
+            </li>
 
-            <!-- Password Field -->
-            <div class="form-floating mb-3 form-check-inline justify-content-center">
-                <input type="password" class="form-control" id="password" placeholder="placeholder"  autocomplete="new-password" required>
-                <label for="floatingInput">Password</label>
-            </div><br>
+            <!-- Sign Up Pill -->
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Sign Up</button>
+            </li>
 
-            <!-- Show Password Checkbox -->
-            <div class="form-check form-check-inline justify-content-center">
-                <input type="checkbox" onclick = "showPass()" class="form-check-input" > Show Password
-            </div><br><br>
+        </ul>
 
-            <!-- Login Button -->  
-            <button type="button" name = "submit" onclick = "doLogin();"  value = "Submit" class="btn btn-primary">Login</button>
+        <!-- Navigation Pills Contents -->
+        <div class="tab-content" id="pills-tabContent">
+            
+            <!-- Login Page -->
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                
+                <!-- Main Title Header -->
+                <h1 class = "text-center py-3"> Contact Manager Login </h1> <br><br><br><br>
 
-            <!-- DEBUG ONLY -->
-            <!-- <li class="nav-item"><a href="main.html" class="nav-link">DEBUG MAIN</a></li> -->
+                <!-- Existing User Login Form -->
+                <!-- ALL FIELDS ARE REQURIED -->
+                <form id = "loginForm" class = "text-center py-3">
+                    
+                    <!-- Username Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="username" class="form-control" id="username" placeholder="placeholder" required>
+                        <label for="floatingInput">Username</label>
+                    </div><br>
 
-            <!-- PLEASE DO NOT REMOVE-->
-            <p id="loginResult"></p><br/><br/><br/><br/>       
-        </form>
+                    <!-- Password Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="password" class="form-control" id="password" placeholder="placeholder"  autocomplete="new-password" required>
+                        <label for="floatingInput">Password</label>
+                    </div><br>
 
-        <!-- About Button  -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> About </button>
+                    <!-- Show Password Checkbox -->
+                    <div class="form-check form-check-inline justify-content-center">
+                        <input type="checkbox" onclick = "showPass()" class="form-check-input" > Show Password
+                    </div><br><br>
+
+                    <!-- Login Button -->  
+                    <button type="button" name = "submit" onclick = "doLogin();"  value = "Submit" class="btn btn-primary">Login</button>
+
+                    <!-- DEBUG ONLY -->
+                    <!-- <li class="nav-item"><a href="main.html" class="nav-link">DEBUG MAIN</a></li> -->
+
+                    <!-- PLEASE DO NOT REMOVE-->
+                    <p id="loginResult1"></p><br/><br/><br/><br/>       
+                </form>
+
+                <!-- About Button  -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> About </button>
+                
+                <!-- About Modal -->
+                <div class="modal fade text-center justify-content-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header text-center justify-content-center">
+                        <h1 class="modal-title fs-6 text-center justify-content-center" id="exampleModalLabel">COP 4331 Small Project Group 16 Spring 2023</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        Julian Espinoza        -- Project Manager<br>
+                        John Pacheco           -- Front-End<br>
+                        Orlando Rodriguez      -- Front-End<br>
+                        Austin Stafford        -- Database<br>
+                        Vicente Vicanco Cepeda -- Back-End<br>
+                        Marcelino Pozo         -- Back-End
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sign Up Page -->
+            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+            
+                <!-- Main Title Header -->        
+                <h1 class = "text-center py-3">New User Registration:</h1><br>
         
-        <!-- About Modal -->
-        <div class="modal fade text-center justify-content-center" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header text-center justify-content-center">
-                <h1 class="modal-title fs-6 text-center justify-content-center" id="exampleModalLabel">COP 4331 Small Project Group 16 Spring 2023</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                Julian Espinoza        -- Project Manager<br>
-                John Pacheco           -- Front-End<br>
-                Orlando Rodriguez      -- Front-End<br>
-                Austin Stafford        -- Database<br>
-                Vicente Vicanco Cepeda -- Back-End<br>
-                Marcelino Pozo         -- Back-End
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                </div>
+                <!-- New User Registration Form, runs signup.php -->
+                <!-- ALL FIELDS ARE REQURIED -->
+                <form id = "signupForm" class = "text-center py-3">
+        
+                    <!-- First Name Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="firstname" class="form-control" id="firstnameCreate" placeholder="placeholder" required>
+                        <label for="floatingInput">First Name</label>
+                    </div><br>
+        
+                    <!-- Last Name Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="lastname" class="form-control" id="lastnameCreate" placeholder="placeholder" required>
+                        <label for="floatingInput">Last Name</label>
+                    </div><br>
+        
+                    <!-- Username Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="username" class="form-control" id="usernameCreate" placeholder="placeholder" required>
+                        <label for="floatingInput">Username</label>
+                    </div><br>
+        
+                    <!-- Password Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="password" class="form-control" id="passwordCreate" placeholder="placeholder" required>
+                        <label for="floatingInput">Password</label>
+                    </div><br>
+        
+                    <!-- Verify Password Field -->
+                    <div class="form-floating mb-3 form-check-inline justify-content-center">
+                        <input type="password" class="form-control" id="passwordcheckCreate" placeholder="placeholder" required>
+                        <label for="floatingInput">Re-Enter Password</label>
+                    </div><br>
+        
+                    <!-- Show Password Checkbox -->
+                    <div class="form-check form-check-inline justify-content-center">
+                        <input type="checkbox" onclick = "showPass();" class="form-check-input" > Show Password
+                    </div><br><br>
+        
+                    <!-- Sign Up Button --> 
+                    <button type="button" onclick ="doSignup();" class="btn btn-primary">Sign Up</button>
+        
+                </form>
+        
+                <p id="loginResult2" style = "text-align: center;"></p></div>
             </div>
-            </div>
-        </div>
     
     </body>
 
