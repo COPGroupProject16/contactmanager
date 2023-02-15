@@ -115,6 +115,15 @@ body
   --bs-table-bg: 201e1e;
 }
 
+/* About Modal in index.html */
+.modal
+{
+  --bs-modal-bg: #201e1e;
+  --bs-modal-header-padding-x: 0;
+  --bs-modal-header-padding-y: 0;
+  --bs-modal-inner-border-radius: 0;
+}
+
 /* Mobile Mode on main.html */
 @media only screen and (max-device-width: 768px) {
     .show-mobile {
