@@ -85,12 +85,11 @@ function showContacts()
 // addContact Function on main.html
 function addContact(formName)
 {
-	// Get User Input
+	// Placeholders for data fields
 	let firstname = "";
 	let lastname = "";
 	let email = "";
 	let phonenum = "";
-
 
 	// Add Contact from Mobile Version
 	if(formName == "mobileAdd")
@@ -98,6 +97,7 @@ function addContact(formName)
 		// Check that all fields are present
 		if(document.getElementById(formName).reportValidity() == false) { return; }
 
+		// Get User Input
 		firstname = document.getElementById("firstname-m").value;
 		lastname = document.getElementById("lastname-m").value;
 		email = document.getElementById("email-m").value;
@@ -107,8 +107,10 @@ function addContact(formName)
 	// Addd Contact from Desktop Version
 	else
 	{
+		// Check that all fields are present
 		if(document.getElementById(formName).reportValidity() == false) { return; }
 
+		// Get User Input
 		firstname = document.getElementById("firstname").value;
 		lastname = document.getElementById("lastname").value;
 		email = document.getElementById("email").value;
@@ -116,37 +118,99 @@ function addContact(formName)
 	}
 
 	// Get UserID
-	let userId = parseInt(document.getElementById("userID").innerText);
+	let userId = 3; //parseInt(document.getElementById("userID").innerText);
 
 	// Get Today's Date (MM/DD/YYYY)
 	var today = new Date();
 	var dd = String(today.getDate()).padStart(2, '0');
 	var mm = String(today.getMonth() + 1).padStart(2, '0');
 	var yyyy = today.getFullYear();
-	
 	today = mm + '/' + dd + '/' + yyyy;
-	console.log(today);
 
-	// Filler if no Email or Phone Number Entered
+	console.log(email);
+
+	// Check Email Address
 	if (email == "" || email.trim().length == 0) { email = "-"; }
-	if (phonenum == "" || phonenum.trim().length == 0) { email = "-"; }
+	else
+	{
+		// Regular Expression (String + @ + String + . + String) --> NO @ Signs
+		var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+		
+        var res = regex.test(email);
+
+		// Alert User of Proper Format
+		if (res == false) 
+		{
+			alert(" Email Address must be in the format emailaddress@website.domain");
+			return; 
+		}
+	}
+
+	// Check Phone Number
+	if (phonenum == "" || phonenum.trim().length == 0) { phonenum= "-"; }
+	else
+	{
+		// Regular Expression (### + "-"" + ### + "-" + ####) --> ###-###-####
+		var regex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/
+		
+        var res = regex.test(phonenum);
+
+		// Alert User of Proper Format
+		if (res == false) 
+		{
+			alert(" Phone Number must be in the format ###-###-####");
+			return; 
+		}
+	}
 
 	// Stringify Input
 	let jsonPayload = JSON.stringify({firstname: firstname, lastname: lastname, email: email, phonenum: phonenum, userId: userId, adddate: today});
-	console.log(jsonPayload);
 
 	// Get Proper URL
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + 'PHP/addContact.php';
 
+	// Open XML Request to SQL Database
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	xhr.onreadystatechange = function()	{};
-
-	xhr.send(jsonPayload); 
 	
+	try
+	{
+		// When we have recieved a response, do this
+		xhr.onreadystatechange = function() 
+		{
+			// Get and Parse Response Text
+			let jsonObject = JSON.parse(xhr.responseText);
+			userId = jsonObject.id;
+
+			// If Valid Server Response --- THIS STILL NEEDS REVIEW
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				// User already exists --> Return Error
+				if(userId < 1)
+				{		 
+					// Blink Effect 
+					setTimeout(function(){document.getElementById("loginResult").innerHTML = "Contact Not Added";},250);   
+					document.getElementById("loginResult").innerHTML = " ";
+					return;              
+				}
+				
+				// User Does Not Exist --> Create User and Proceed
+				else
+				{
+					window.location.href = "main.html";        
+				}
+			}
+		};
+
+		// Send JSON to MySQL database
+		xhr.send(jsonPayload);
+	}
+
+	// We've encounted an error here
+	catch(err) { document.getElementById("loginResult").innerHTML = err.message; }
 }
+
 
 // deleteContact Function on main.html
 function deleteContact()

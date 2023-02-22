@@ -6,7 +6,9 @@ body
     /*font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     background-color: #201e1e;
     color: #ffffff;
-    background: url('deep_space.webp') no-repeat;
+    /* background: url('deep_space.webp') no-repeat; */
+    /* background: #201e1e; */
+    background: radial-gradient(circle at 24.1% 68.8%, rgb(50, 50, 50) 0%, rgb(0, 0, 0) 99.4%);
 }
 
 body.mainHTML
@@ -23,7 +25,7 @@ header
   left: 0;
   width: 100%;
   padding: 0px;
-  background: rgba(166, 226, 247, 0.5);
+  background: #201e1e;
   z-index: 99;
 }
 
@@ -35,7 +37,7 @@ header
   width: 400px;
   height: 400px;
   padding: 30px;
-  background: rgba(166, 226, 247, 0.4);
+  background: #201e1e;
   border: 2px solid rgba(255,255,255,.5);
   border-radius: 20px;
   backdrop-filter: blur(30px);
@@ -100,7 +102,14 @@ header
 /* Active Navigation Pill */
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link
 {
-    background-color: #334A52;
+    background-color: #aaaaaa;
+}
+
+/* Greetings Nav Pill */
+.nav-link.disabled {
+  color: #bbbbbb;
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Navigation Pills Layout */
@@ -109,7 +118,7 @@ header
     --bs-nav-link-padding-x: 1rem;
     --bs-nav-link-padding-y: 0.5rem;
     --bs-nav-link-font-weight: ;
-    --bs-nav-link-color: #ffffff;
+    --bs-nav-link-color: #bbbbbb;
     --bs-nav-link-hover-color: #f8f8f6;
     display: flex;
     flex-wrap: wrap;
@@ -144,8 +153,8 @@ header
     --bs-btn-bg: #334A52;
     --bs-btn-border-color: #201e1e;
     --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #a19a9a;
-    --bs-btn-hover-border-color: #C2F9FF;
+    --bs-btn-hover-bg: #e2d62c;
+    --bs-btn-hover-border-color: #e2d62c;
     --bs-btn-focus-shadow-rgb: 49,132,253;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #C2F9FF;
