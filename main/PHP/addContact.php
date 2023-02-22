@@ -3,6 +3,7 @@
 	$inData = getRequestInfo();
 	
 	// Get User Input
+	$username = $inData["username"];
 	$firstName = $inData["firstname"];
 	$lastName = $inData["lastname"];
 	$email = $inData["email"];
@@ -21,19 +22,21 @@
 	if ($conn->connect_error) 
 	{
 		returnWithError( $conn->connect_error );
+   
 	} 
-
-	// Case: Connection Success
+  // Case: Connection Success
 	else
 	{
 		// Add Contact to Database
-		$stmt = $conn->prepare("INSERT INTO contact (userId, firstName, lastName, email, phonenum, addDate) VALUES(?,?,?,?,?,?)");
+		$stmt = $conn->prepare("INSERT INTO contact (id, firstname, lastname, email, phone, datecreated) VALUES(?,?,?,?,?,?)");
 		$stmt->bind_param("ssssss", $userId, $firstname, $lastname, $email, $phonenum, $addDate);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
+
 		returnWithError("");
 	}
+	
 
 	function getRequestInfo()
 	{
