@@ -17,7 +17,7 @@
     </head>
 
 
-    <body onload = "readCookie()">
+    <body id = "mainBody" onload = "readCookie(); showContacts();">
         <!-- Import addContact()-->
         <script type="text/javascript" src="JS/CRUD_Operations.js"></script>
         <script type="text/javascript" src="JS/accountManagement.js"></script>
@@ -94,7 +94,7 @@
           
           <!-- Contact Table NEED TO FILL THIS WITH USER DATA -->
           <div class="col-sm-10 justify-content-center">
-            <table id = "contactlist" class="table table-responsive px-2 table-dark">
+            <table id = "contactlist-m" class="table table-responsive px-2 table-dark">
 
                 <!-- Table Headers-->
                 <thead>
@@ -110,7 +110,7 @@
                 </thead>
 
                 <!-- Table Body NEED TO UPDATE THIS SO IT FILLS WITH USER CONTACTS-->
-                <tbody>
+                <tbody id = "tbody-m">
 
                   <!-- Example Filler Items -->
                   <tr>
@@ -265,92 +265,7 @@
                             </thead>
 
                             <!-- Table Data FILLED WITH TEST DATA FOR NOW -->
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                            </tbody>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                            </tbody>
-                            <tbody>
-                              <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
-                              <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                <td>123-456-7890</td>
-                                <td>1.31.23</td>
-                                <td><button type="editButton" class="btn btn-outline-primary">Edit</button> <button type="deleteButton" class="btn btn-outline-danger">Delete</button><br></td>
-                              </tr>
+                            <tbody id = "tbody-d">
                             </tbody>
                         </table>
 
@@ -363,6 +278,8 @@
           </div> 
 
         </nav>
+
+    <p hidden id = "userID"></p>    
 
     </body>
 

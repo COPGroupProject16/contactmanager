@@ -219,5 +219,5 @@ function readCookie()
 		document.getElementById("helloBanner1").innerText = "Hello,  " + firstName + " " + lastName;
 		document.getElementById("helloBanner2").innerText = "Hello,  " + firstName + " " + lastName; 
 		document.getElementById("userID").innerText = userId;
-	}
+	}	
 }
