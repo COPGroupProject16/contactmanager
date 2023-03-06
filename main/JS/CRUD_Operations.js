@@ -257,20 +257,107 @@ function editContact(rowNum,id)
 	let buttonsCol = table.rows[rowNum].cells[6];
 	
 	// THIS NEEDS FIXING --> Pass String to this funciton?
-	//buttonsCol.innerHTML = '<td><button type="editButton" id = "' + id + '"class="btn btn-outline-success" onclick = "editContact(this.parentNode.parentNode.rowIndex-1,this.id);">Save</button> <button type="deleteButton" id = "' + id + '" class="btn btn-outline-danger" onclick = "resetRow(' + rowNum + ',' + id + ',/"' + JSON.stringify(firstname) + '"/,1,1,1);">Cancel</button><br></td>';
+	buttonsCol.innerHTML = '<td><button type="editButton" id = "' + id + '"class="btn btn-outline-success" onclick = "updateContact('+id+');">Save</button> <button type="deleteButton" id = "' + id + '" class="btn btn-outline-danger" onclick = "showContacts();">Cancel</button><br></td>';
 	
 	//buttons.innerHTML = '<td><button type="editButton" id = "' + splits[0] + '"class="btn btn-outline-primary" onclick = "editContact(this.parentNode.parentNode.rowIndex-1,this.id);">Edit</button> <button type="deleteButton" id = "' + splits[0] + '" class="btn btn-outline-danger" onclick = "deleteContact(this.parentNode.parentNode.rowIndex-1,this.id);">Delete</button><br></td>';
 }
 
-function resetRow(rowNum,id,firstname,lastname,email,phone)
+// Update Contact Funciton in main.html
+function updateContact(id)
 {
-	let table = document.getElementById("tbody-d");
+	// Get the input fields 
+	let firstname = document.getElementById("fnameCol"+id).value;
+	let lastname = document.getElementById("lnameCol"+id).value;
+	let email = document.getElementById("emailCol"+id).value;
+	let phonenum = document.getElementById("phoneCol"+id).value;
 
-	table.rows[rowNum].cells[1].innerHTML = firstname;
-	table.rows[rowNum].cells[2].innerHTML = lastname;
-	table.rows[rowNum].cells[3].innerHTML = email;
-	table.rows[rowNum].cells[4].innerHTML = phone;
-	table.rows[rowNum].cells[6].innerHTML = '<td><button type="editButton" id = "' + id + '"class="btn btn-outline-primary" onclick = "editContact(this.parentNode.parentNode.rowIndex-1,this.id);">Edit</button> <button type="deleteButton" id = "' + id + '" class="btn btn-outline-danger" onclick = "deleteContact(this.parentNode.parentNode.rowIndex-1,this.id);">Delete</button><br></td>';
+	// Check Email Address
+	if (email == "" || email.trim().length == 0) { email = "-"; }
+	else if (email == "-") {}
+	else
+	{
+		// Regular Expression (String + @ + String + . + String) --> NO @ Signs
+		var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+		
+		var res = regex.test(email);
+
+		// Alert User of Proper Format
+		if (res == false) 
+		{
+			alert(" Email Address must be in the format emailaddress@website.domain");
+			return; 
+		}
+	}
+
+	// Check Phone Number
+	if (phonenum == "" || phonenum.trim().length == 0) { phonenum= "-"; }
+	else if (phonenum == "-") {}
+	else
+	{
+		// Regular Expression (### + "-"" + ### + "-" + ####) --> ###-###-####
+		var regex = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/
+		
+		var res = regex.test(phonenum);
+
+		// Alert User of Proper Format
+		if (res == false) 
+		{
+			alert(" Phone Number must be in the format ###-###-####");
+			return; 
+		}
+	}
+
+	let jsonPayload = JSON.stringify({id: id, firstname: firstname, lastname: lastname, email: email, phonenum: phonenum});
+	console.log(jsonPayload);
+
+	// Get Proper URL
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + 'PHP/editContact.php';
+
+	// Open XML Request to SQL Database
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	
+	try
+	{
+		// When we have recieved a response, do this
+		xhr.onreadystatechange = function() 
+		{
+			// Get and Parse Response Text
+			let jsonObject = JSON.parse(xhr.responseText);
+			userId = jsonObject.id;
+
+			// If Valid Server Response --- THIS STILL NEEDS REVIEW
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				// User already exists --> Return Error
+				if(userId < 1)
+				{		 
+					// Blink Effect 
+					setTimeout(function(){document.getElementById("loginResult").innerHTML = "Contact Not Added";},250);   
+					document.getElementById("loginResult").innerHTML = " ";
+					return;              
+				}
+				
+				// User Does Not Exist --> Create User and Proceed
+				else
+				{
+					//showContacts();        
+				}
+			}
+		};
+
+		// Send JSON to MySQL database
+		xhr.send(jsonPayload);
+	}
+
+	// We've encounted an error here
+	catch(err) { document.getElementById("loginResult").innerHTML = err.message; }
+
+
+	// Refresh the Contact Table
+	showContacts();
+	showContacts();
 }
 
 // deleteContact Function on main.html
