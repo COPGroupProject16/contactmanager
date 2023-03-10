@@ -25,10 +25,8 @@
 		// echo "Hello World";
 
 		// Return an error if the user already exists
-		if( $row = $result->fetch_assoc()  )
-		{
-			returnWithError("User already exists");
-		}
+		if( $row = $result->fetch_assoc()  ) { returnWithError("User already exists"); }
+		
 		// Otherwise, create the user
 		else
 		{

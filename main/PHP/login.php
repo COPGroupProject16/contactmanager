@@ -4,7 +4,7 @@
 	$inData = getRequestInfo();
  	$firstName = "";
 	$lastName = "";
-  $id = 0;
+ 	 $id = 0;
 	
 	// Connect to SQL database
 	$conn = new mysqli ("localhost", "PHP_Script", "ucf2024","cm_database"); 	

@@ -218,7 +218,6 @@ function readCookie()
 	{ 
 		document.getElementById("helloBanner1").innerText = "Hello,  " + firstName + " " + lastName;
 		document.getElementById("helloBanner2").innerText = "Hello,  " + firstName + " " + lastName; 
-		document.getElementById("userid-m").innerText = userId;
-		console.log(document.getElementById("userid-m").innerText);
-	}
+		document.getElementById("userID").innerText = userId;
+	}	
 }
