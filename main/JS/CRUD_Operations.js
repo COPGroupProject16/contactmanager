@@ -37,7 +37,8 @@ function editContact(check)
 
 function showContacts()
 {
-    let userId = parseInt(document.getElementById("userID").innerText);
+    let userId = document.getElementById("userid-m").innerText;
+	
     console.log(userId);
 
     let jsonPayload = JSON.stringify({userId: userId});

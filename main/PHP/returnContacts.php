@@ -1,6 +1,6 @@
 <?php
 
-    $inData = getRequestInfo();
+   $inData = getRequestInfo();
 
     // Connect to SQL database
 	$conn = new mysqli ("localhost", "PHP_Script", "ucf2024","cm_database"); 	
@@ -14,10 +14,19 @@
     // Case: Connection Succeeded 
 	else
 	{		
-		$stmt = $conn->prepare("SELECT firstName, lastName, email, phone, datecreated FROM user WHERE id=?");
-		$stmt->bind_param("s", $inData["userId"]);
+		$stmt = $conn->prepare("SELECT DISTINCT firstName, lastName, email, phone, datecreated FROM contact WHERE user=15");
+		//$stmt->bind_param("s", $inData["userId"]);
 		$stmt->execute();
-		$result = $stmt->get_result();
+    //$result = $stmt->get_result();
+    mysqli_stmt_store_result($stmt);
+   
+    printf("%d\n",$stmt->num_rows());
+    echo $stmt->get_result();
+   
+  
+   
+   
+     
 
 		// If Login
 		if( $row = $result->fetch_assoc()  )
