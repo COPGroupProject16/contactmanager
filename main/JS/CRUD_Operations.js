@@ -88,6 +88,10 @@ function showContacts()
 				buttons.innerHTML = '<td><button type="editButton" id = "' + splits[0] + '"class="btn btn-outline-primary" onclick = "editContact(this.parentNode.parentNode.rowIndex-1,this.id);">Edit</button> <button type="deleteButton" id = "' + splits[0] + '" class="btn btn-outline-danger" onclick = "deleteContact(this.parentNode.parentNode.rowIndex-1,this.id);">Delete</button><br></td>';
 
 			}
+
+			let v = document.getElementById("searchbar");
+			console.log(v);
+			v.addEventListener("keyup", search);
 		}
     };
 
@@ -416,4 +420,70 @@ function tableSetter() {
     }
 
     console.log("Complete");
+}
+
+//Search Function for search bar on main.html
+function search()
+{
+	// Get Input
+	let id = parseInt(document.getElementById("userID").innerText);
+	let input = document.getElementById("searchbar").value;
+	// console.log(input);
+
+	let jsonPayload = JSON.stringify({input:input,userid:id});
+	console.log(jsonPayload);
+
+	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + 'PHP/searchContacts.php';
+
+    let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true);
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+	xhr.onreadystatechange = function()	
+    {
+		if (this.readyState == 4 && this.status == 200)
+		{
+			let jsonObject = JSON.parse(xhr.responseText);
+			//console.log(jsonObject);
+
+			let contactTable = document.getElementById("tbody-d");
+			document.getElementById('tbody-d').innerHTML = '';
+
+			for (let i = 0; i < jsonObject.results.length; i++)
+			{
+				let splits = jsonObject.results[i].split(',');
+				//console.log(splits);
+
+				let row = contactTable.insertRow();
+
+				let num = row.insertCell(0);
+				num.innerHTML = i + 1;
+
+				let firstName = row.insertCell(1);
+				firstName.innerHTML = splits[1];
+
+				let lastName = row.insertCell(2);
+				lastName.innerHTML = splits[2];
+
+				let email = row.insertCell(3);
+				email.innerHTML = splits[3];
+
+				let phoneNum = row.insertCell(4);
+				phoneNum.innerHTML = splits[4];
+
+				let dateCreated = row.insertCell(5);
+				dateCreated.innerHTML = splits[5];
+
+				let buttons = row.insertCell(6);
+				buttons.innerHTML = '<td><button type="editButton" id = "' + splits[0] + '"class="btn btn-outline-primary" onclick = "editContact(this.parentNode.parentNode.rowIndex-1,this.id);">Edit</button> <button type="deleteButton" id = "' + splits[0] + '" class="btn btn-outline-danger" onclick = "deleteContact(this.parentNode.parentNode.rowIndex-1,this.id);">Delete</button><br></td>';
+
+			}
+
+			//let v = document.getElementById("searchbar");
+			//console.log(v);
+			//v.addEventListener("keyup", search);
+		}
+    };
+
+	xhr.send(jsonPayload); 
 }
