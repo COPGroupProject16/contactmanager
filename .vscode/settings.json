@@ -1,0 +1,17 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "142.93.53.159",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "ContactManager",
+            "database": "cm_database",
+            "username": "root",
+            "password": "ucfCOP4331g"
+        }
+    ]
+}
