@@ -158,12 +158,17 @@ function doSignup()
 }
 
 // Show Password Field on Login/Sign Up Page(s)
-function showPass(id) 
+function showPass() 
 {
 	
-    var x = document.getElementById(id);
-	//console.log(x);
+    var x = document.getElementById("password");
+	console.log(x);
     if (x.type === "password") { x.type = "text"; } 
+	else { x.type = "password"; }
+
+    x = document.getElementById("passwordcheck");
+
+    if (x.type === "password") { x.type = "text"; }
 	else { x.type = "password"; }
 }
 
@@ -213,6 +218,7 @@ function readCookie()
 	{ 
 		document.getElementById("helloBanner1").innerText = "Hello,  " + firstName + " " + lastName;
 		document.getElementById("helloBanner2").innerText = "Hello,  " + firstName + " " + lastName; 
-		document.getElementById("userID").innerText = userId;
-	}	
+		document.getElementById("userid-m").innerText = userId;
+		console.log(document.getElementById("userid-m").innerText);
+	}
 }

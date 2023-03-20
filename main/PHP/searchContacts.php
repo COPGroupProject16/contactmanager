@@ -11,21 +11,22 @@
 	if ($conn->connect_error) { returnWithError( $conn->connect_error ); } 
 	else
 	{
-		// $stmt = $conn->prepare("SELECT id, firstname, lastname, email, phone, datecreated FROM contact WHERE user=?");
-		$stmt = $conn->prepare("SELECT id, firstname, lastname, email, phone, datecreated FROM contact WHERE firstname LIKE '?%' AND user=?");
+ 
+    $stmt = $conn->prepare("SELECT id, firstname, lastname, email, phone, datecreated FROM contact WHERE firstname LIKE ? AND user = ?");
+		$search = "%" . $inData["input"] . "%";
+		$stmt->bind_param("ss", $search, $inData["id"]);
 
-		$stmt->bind_param("ss", $inData["input"], $inData["userid"]);
 		$stmt->execute();
 		
 		$result = $stmt->get_result();
-		
+
 		while($row = $result->fetch_assoc())
 		{
 			if( $searchCount > 0 ) { $searchResults .= ","; }
 			$searchCount++;
 			$searchResults .= '"' . $row["id"] . ','. $row["firstname"] . ',' . $row["lastname"] . ',' . $row["email"] . ',' . $row["phone"] . ',' . $row["datecreated"] . '"';
 		}
-		
+
 		if( $searchCount == 0 )
 		{
 			returnWithError( "No Records Found" );
@@ -38,7 +39,6 @@
 		$stmt->close();
 		$conn->close();
 	}
-
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
@@ -61,5 +61,4 @@
 		$retValue = '{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
 ?>

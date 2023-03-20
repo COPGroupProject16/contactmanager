@@ -53,6 +53,7 @@ function showContacts()
     {
 		if (this.readyState == 4 && this.status == 200)
 		{
+      //console.log(xhr.respoonseText);
 			let jsonObject = JSON.parse(xhr.responseText);
 			//console.log(jsonObject);
 
@@ -144,7 +145,7 @@ function addContact(formName)
 	var yyyy = today.getFullYear();
 	today = mm + '/' + dd + '/' + yyyy;
 
-	console.log(email);
+	//console.log(email);
 
 	// Check Email Address
 	if (email == "" || email.trim().length == 0) { email = "-"; }
@@ -231,7 +232,7 @@ function addContact(formName)
 
 function editContact(rowNum,id)
 {
-	console.log(rowNum);
+	//console.log(rowNum);
 	let table = document.getElementById("tbody-d");
 
 	let firstname = table.rows[rowNum].cells[1].innerHTML;
@@ -239,7 +240,7 @@ function editContact(rowNum,id)
 	let email = table.rows[rowNum].cells[3].innerHTML;
 	let phone = table.rows[rowNum].cells[4].innerHTML;
 
-	console.log(firstname, lastname, email, phone);
+	//console.log(firstname, lastname, email, phone);
 
 	let fnameCol = table.rows[rowNum].cells[1];
 	fnameCol.innerHTML = '<input id = "fnameCol' + id + '" ' + 'type="firstname">';
@@ -312,7 +313,7 @@ function updateContact(id)
 	}
 
 	let jsonPayload = JSON.stringify({id: id, firstname: firstname, lastname: lastname, email: email, phonenum: phonenum});
-	console.log(jsonPayload);
+	//console.log(jsonPayload);
 
 	// Get Proper URL
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + 'PHP/editContact.php';
@@ -403,7 +404,7 @@ function deleteContact(rowNum,id)
 // Function gives all class 'unsetTable' elements a number based on their row
 function tableSetter() {
     currentRow = currentRowNumber;
-    console.log("tabelSetter entered");
+    //console.log("tabelSetter entered");
 
     for (var i = entries.length - 1; i > -1; i--) {
         entries[i].classList.add(currentRow);
@@ -414,12 +415,12 @@ function tableSetter() {
             console.log("Iterating");
         }
 
-        console.log("i is " + i);
+        //console.log("i is " + i);
 
-        console.log("Looped");
+        //console.log("Looped");
     }
 
-    console.log("Complete");
+    //console.log("Complete");
 }
 
 //Search Function for search bar on main.html
@@ -428,10 +429,17 @@ function search()
 	// Get Input
 	let id = parseInt(document.getElementById("userID").innerText);
 	let input = document.getElementById("searchbar").value;
+ 
+  if(input == '')
+  {
+    showContacts();
+    return;
+  }
+    
 	// console.log(input);
 
-	let jsonPayload = JSON.stringify({input:input,userid:id});
-	console.log(jsonPayload);
+	let jsonPayload = JSON.stringify({input:input,id:id});
+	//console.log(jsonPayload);
 
 	let url = location.href.substring(0, location.href.lastIndexOf("/")+1) + 'PHP/searchContacts.php';
 
@@ -443,6 +451,7 @@ function search()
     {
 		if (this.readyState == 4 && this.status == 200)
 		{
+		  //console.log(xhr.responseText);
 			let jsonObject = JSON.parse(xhr.responseText);
 			//console.log(jsonObject);
 
